@@ -23,7 +23,7 @@ def dfs(x, y, direc):
         nx = x + dx[nd]
         ny = y + dy[nd]
         # 그 방향이 청소 안되있으면
-        if graph[nx][ny] == 0:
+        if 0 <= nx < n and 0 <= ny < m and graph[nx][ny] == 0:
             dfs(nx, ny, nd)
             return
         direc = nd
