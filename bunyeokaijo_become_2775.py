@@ -17,3 +17,17 @@ for _ in range(T):
             graph[i][j] += graph[i-1][j] + graph[i][j-1]
 
     print(graph[k][n])
+
+    '''
+    T = int(input())
+
+for _ in range(T):
+    k = int(input())
+    n = int(input())
+    graph = [i for i in range(1, n+1)]
+    for i in range(k):
+        for j in range(1, n):
+            graph[j] += graph[j-1]
+
+    print(graph[-1])
+    '''
