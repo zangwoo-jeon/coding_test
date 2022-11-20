@@ -32,3 +32,21 @@ for i in range(n):
             answer = max(answer, bfs(i, j))
 
 print(answer)
+
+'''
+def bfs(x, y):
+    count = 1
+    Q = deque()
+    Q.append((x, y))
+    graph[x][y] = 0
+    while Q:
+        x, y = Q.popleft()
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if 0 <= nx < r and 0 <= ny < c and graph[nx][ny] == 1:
+                graph[nx][ny] = 0
+                count += 1
+                Q.append((nx, ny))
+    return count
+'''    
