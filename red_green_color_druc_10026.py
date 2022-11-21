@@ -1,19 +1,22 @@
 from collections import deque
 from copy import deepcopy
+
 n = int(input())
 
-graph = [list(input()) for _ in range(n)]
-visit = [[0]*n for _ in range(n)]
-sac_graph = deepcopy(graph)
+graph = [list(map(str, input())) for _ in range(n)]
+sak_graph = deepcopy(graph)
 
 for i in range(n):
     for j in range(n):
-        if sac_graph[i][j] == "G":
-            sac_graph[i][j] = "R"
+        if graph[i][j] == "G":
+            sak_graph[i][j] = "R"
+visit = [[0]*n for _ in range(n)]
+n_visit = [[0]*n for _ in range(n)]
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
 
-def bfs(x, y, G):
-    dx = [-1, 1, 0, 0]
-    dy = [0, 0, -1, 1]
+def bfs(x, y, graph, visit):
+
     Q = deque()
     Q.append((x, y))
     visit[x][y] = 1
@@ -22,25 +25,18 @@ def bfs(x, y, G):
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
-            if 0 <= nx < n and 0 <= ny < n and visit[nx][ny] == 0 and G[nx][ny] == G[x][y]:
-                Q.append((nx, ny))
+            if 0 <= nx < n and 0 <= ny < n and graph[nx][ny] == graph[x][y] and visit[nx][ny] == 0:
                 visit[nx][ny] = 1
+                Q.append((nx, ny))
     return True
 
-result = 0
-sac_result = 0
-for i in range(n):
-    for j in range(n):
-        if visit[i][j] == 0 and bfs(i, j, graph) == True:
-            bfs(i, j, graph)
-            result += 1
-visit = [[0]*n for _ in range(n)]
+result_f, result_s = 0, 0
 
 for i in range(n):
     for j in range(n):
-        if visit[i][j] == 0 and bfs(i, j, sac_graph) == True:
-            bfs(i, j, sac_graph)
-            sac_result += 1
+        if visit[i][j] == 0 and bfs(i, j, graph, visit) == True:
+            result_f += 1
+        if n_visit[i][j] == 0 and bfs(i, j, sak_graph, n_visit) == True:
+            result_s += 1
 
-print(result)
-print(sac_result)
+print(result_f, result_s)
