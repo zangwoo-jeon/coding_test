@@ -1,18 +1,13 @@
 n, m = map(int, input().split())
-graph = [list(map(int, input().split())) for _ in range(m)]
+array = [list(map(int, input().split())) for _ in range(m)]
+B_array = sorted(array, key=lambda x:(x[1], x[0]))
+A_array = sorted(array, key=lambda x:(x[0], x[1]))
+result = 0
 
-graph.sort()
-six_min = graph[0][0]
+if A_array[0][0] < 6 * B_array[0][1]:
+    result += A_array[0][0] * (n // 6) + min(A_array[0][0], B_array[0][1]*(n%6))
 
-for i in range(len(graph)):
-    graph[i][0], graph[i][1] = graph[i][1], graph[i][0]
-
-graph.sort()
-one_min = graph[0][0]
-
-if six_min <= one_min*6:
-    result = six_min*(n//6) + min(six_min, one_min*(n%6))
 else:
-    result = one_min*n
+    result += B_array[0][1] * n
 
 print(result)
